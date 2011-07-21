@@ -1,0 +1,48 @@
+@import "http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/resources/dojo.css";
+@import "http://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/tundra/tundra.css";
+
+html, body {
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+}
+
+#controls, #edit, #preview, #toc {
+    padding: 2em;
+}
+
+#controls {
+    background-color: #CCC;
+
+    background-image: -webkit-linear-gradient(top, #CCC, #AAA);
+    background-image:    -moz-linear-gradient(top, #CCC, #AAA);
+    background-image:     -ms-linear-gradient(top, #CCC, #AAA);
+    background-image:      -o-linear-gradient(top, #CCC, #AAA);
+    background-image:         linear-gradient(top, #CCC, #AAA); /* standard, but currently unimplemented */
+
+    box-shadow: 0px 3px 3px #444;
+    z-index: 20;
+}
+
+#toc {
+    width: 200px;
+    background-color: #EEE;
+    border-right: 1px solid #AAA;
+}
+
+#main {
+}
+
+#edit textarea {
+    min-height: 300px;
+    max-height: 300px;
+    min-width: 100%;
+    max-width: 100%;
+}
