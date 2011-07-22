@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Pramatico</title>
+    <title>Pragmatico</title>
     <link rel="stylesheet" href="pragmatico.css" type="text/css" />
     <script data-main="main" src="./lib/require.js"></script>
   </head>
@@ -18,9 +18,9 @@
         <button id="add-slide-button"
                 type="button"
                 dojoType="dijit.form.Button">Add Slide</button>
-        <button id="remove-slide-button"
-                type="button"
-                dojoType="dijit.form.Button">Delete Slide</button>
+        <!-- <button id="remove-slide-button" -->
+        <!--         type="button" -->
+        <!--         dojoType="dijit.form.Button">Delete Slide</button> -->
         <button id="slideshow-button"
                 type="button"
                 dojoType="dijit.form.Button">Begin Slideshow</button>
@@ -40,18 +40,19 @@
              region="top"
              splitter="true"
              id="edit">
-          <textarea>This is the edit pane</textarea>
+          <textarea></textarea>
         </div>
 
         <div dojoType="dijit.layout.ContentPane"
              region="center"
              id="preview">
-          This is the preview pane.
         </div>
 
       </div>
 
     </div>
+
+    <!-- TODO: slideshow element that is hidden by default -->
 
    </div>
   </body>
