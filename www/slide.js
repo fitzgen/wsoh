@@ -1,4 +1,4 @@
-define(function (SlideThumbnail) {
+define(function () {
 
   function isArray (it) {
     return Object.prototype.toString.call(it) === '[object Array]';

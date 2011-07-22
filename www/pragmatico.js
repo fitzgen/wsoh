@@ -1,8 +1,9 @@
 define([
   'coweb/main',
   './table-of-contents',
+  './wysiwyg',
   'https://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dojo/dojo.xd.js.uncompressed.js'
-], function(coweb, TableOfContents) {
+], function(coweb, TableOfContents, WYSIWYG) {
 
   dojo.require('dojo.data.ItemFileWriteStore');
   dojo.require('dijit.form.Button');
@@ -11,14 +12,11 @@ define([
 
   dojo.ready(function() {
 
+    // PARSE
+
     dojo.parser.parse();
 
-    var toc = new TableOfContents({
-      dojo: dojo
-    });
-    dijit.byId('toc').domNode.appendChild(toc.domNode);
-
-    window.toc = toc;
+    // DATA
 
     var emptyData = {
       identifier: 'id',
@@ -26,7 +24,6 @@ define([
     };
 
     var dataStore = new dojo.data.ItemFileWriteStore({ data: emptyData });
-    window.dataStore = dataStore;
 
     dojo.connect(dataStore, 'onNew', function () {
       console.log('/pragmatico/slide/new');
@@ -47,6 +44,20 @@ define([
       dojo.publish('/pragmatico/slide/delete', [].slice.call(arguments));
     });
 
+    // WIDGETS
+
+    var wysiwyg = new WYSIWYG({
+      dojo: dojo,
+      textarea: dojo.byId('edit-textarea'),
+      preview: dojo.byId('preview'),
+      dataStore: dataStore
+    });
+
+    var toc = new TableOfContents({
+      dojo: dojo
+    });
+    dijit.byId('toc').domNode.appendChild(toc.domNode);
+
     var addSlideButton = dijit.byId('add-slide-button');
     // var removeSlideButton = dijit.byId('remove-slide-button');
 
@@ -66,14 +77,15 @@ define([
     // dojo.connect(removeSlideButton, 'onClick', function () {
     // });
 
+    // INITIALIZATION
 
-      dataStore.newItem({
-        id: generateId(),
-        text: '# Welcome to Pragmatico\n\n'
-          + '* Create beautiful presentations collaboratively in real time\n\n'
-          + '* Simply use [Markdown](http://daringfireball.net/projects/markdown/)\n\n'
-          + '* See results as you type'
-      });
+    dataStore.newItem({
+      id: generateId(),
+      text: '# Welcome to *Pragmatico*\n\n'
+        + '* Create beautiful presentations collaboratively in real time\n\n'
+        + '* Simply use [`Markdown`](http://daringfireball.net/projects/markdown/)\n\n'
+        + '* See results as you type'
+    });
 
   });
 

@@ -36,8 +36,11 @@ define([
   };
 
   TableOfContents.prototype._select = function TOC_select (el) {
+    if ( this._selected === el ) {
+      return;
+    }
     this.dojo.publish('/pragmatico/select-slide',
-                      Number(el.getAttribute('data-slide-id')));
+                      [Number(el.getAttribute('data-slide-id'))]);
     if ( this._selected ) {
       this.dojo.removeClass(this._selected, 'selected-slide');
     }
