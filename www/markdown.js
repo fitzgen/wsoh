@@ -817,6 +817,37 @@ Markdown.dialects.Gruber.inline = {
       return [ 2, "![" ];
     },
 
+    "?[": function video( text ) {
+      // ?[Alt text](/path/to/img.jpg "Optional title")
+      //      1          2            3       4         <--- captures
+      var m = text.match( /^\?\[(.*?)\][ \t]*\([ \t]*(\S*)(?:[ \t]+(["'])(.*?)\3)?[ \t]*\)/ );
+
+      if ( m ) {
+        if ( m[2] && m[2][0] == '<' && m[2][m[2].length-1] == '>' )
+          m[2] = m[2].substring( 1, m[2].length - 1 );
+
+        m[2] == this.dialect.inline.__call__.call( this, m[2], /\\/ )[0];
+
+        var attrs = { alt: m[1], href: m[2] || "" };
+        if ( m[4] !== undefined)
+          attrs.title = m[4];
+
+        return [ m[0].length, [ "video", attrs ] ];
+      }
+
+      // ![Alt text][id]
+      m = text.match( /^\?\[(.*?)\][ \t]*\[(.*?)\]/ );
+
+      if ( m ) {
+        // We can't check if the reference is known here as it likely wont be
+        // found till after. Check it in md tree->hmtl tree conversion
+        return [ m[0].length, [ "video_ref", { alt: m[1], ref: m[2].toLowerCase(), text: m[0] } ] ];
+      }
+
+      // Just consume the '!['
+      return [ 2, "?[" ];
+    },
+
     "[": function link( text ) {
       // [link text](/path/to/img.jpg "Optional title")
       //      1          2            3       4         <--- captures
@@ -1373,6 +1404,10 @@ function convert_tree_to_html( tree, references, options ) {
       jsonml[ 0 ] = "code";
       break;
     case "img":
+      jsonml[ 1 ].src = jsonml[ 1 ].href;
+      delete jsonml[ 1 ].href;
+      break;
+    case "video":
       jsonml[ 1 ].src = jsonml[ 1 ].href;
       delete jsonml[ 1 ].href;
       break;
