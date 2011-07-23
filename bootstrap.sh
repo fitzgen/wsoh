@@ -16,7 +16,8 @@ rm -rf bots
 ln -s ../www www
 ln -s ../bots bots
 
-cp ../bin/run_server.py bin/run_server.py
+rm bin/run_server.py
+ln -s ../bin/run_server.py bin/run_server.py
 
 echo "# To start, run:"
 echo "cd environment/ && source bin/activate && run_server.py"
