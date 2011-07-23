@@ -3,8 +3,9 @@ define([
   './table-of-contents',
   './wysiwyg',
   './slide-show',
+  './collab',
   'https://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dojo/dojo.xd.js.uncompressed.js'
-], function(coweb, TableOfContents, WYSIWYG, SlideShow) {
+], function(coweb, TableOfContents, WYSIWYG, SlideShow, Collab) {
 
   dojo.require('dojo.data.ItemFileWriteStore');
   dojo.require('dijit.form.Button');
@@ -22,9 +23,11 @@ define([
 
   dojo.ready(function() {
 
+
     // PARSE
 
     dojo.parser.parse();
+
 
     // DATA
 
@@ -44,6 +47,7 @@ define([
     dojo.connect(dataStore, 'onDelete', function () {
       dojo.publish('/pragmatico/slide/delete', [].slice.call(arguments));
     });
+
 
     // WIDGETS
 
@@ -94,6 +98,7 @@ define([
       });
     });
 
+
     // Hide/show main border container
 
     var container = dijit.byId('container');
@@ -102,6 +107,18 @@ define([
     });
     dojo.subscribe('/pragmatico/slide-show/stop', function () {
       dojo.style(container.domNode, "display", "block");
+    });
+
+
+    // COLLAB SETUP
+
+    console.log(Collab);
+
+    var collab = new Collab({
+      dataStore: dataStore,
+      coweb: coweb,
+      dojo: dojo,
+      id: prompt('Slide show id:')
     });
 
     // INITIALIZATION
