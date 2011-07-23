@@ -31,12 +31,6 @@ html, body {
     background-image:         linear-gradient(top, #DDD, #BBB); /* standard, but currently unimplemented */
 }
 
-#toc {
-    width: 200px;
-    background-color: #EEE;
-    border-right: 1px solid #AAA;
-    overflow: auto;
-}
 
 #main {
 }
@@ -50,7 +44,7 @@ html, body {
 #edit textarea {
     min-height: 10em;
     max-height: 10em;
-    width: 31.9em;
+    width: 800px;
     padding: 1em;
     border: 1px dashed #AAA;
     font-size: 200%;
@@ -66,16 +60,38 @@ html, body {
 }
 
 /* thumbnails */
+#toc {
+    width: 200px;
+    background-color: #EEE;
+    border-right: 1px solid #AAA;
+    overflow: auto;
+}
+
+#toc > div {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .slide-thumbnail-container {
+    box-shadow: 0px 3px 3px #aaa;
+    height: 112.5px;
+    width: 200px;
+    margin-bottom: 25px;
+}
+
+.slide-thumbnail-container.selected-slide {
+    box-shadow: 0px 6px 6px #44A;
+}
+
+.slide-thumbnail {
     -moz-transform: scale(0.25);
     -moz-transform-origin: 0% 0%;
     cursor: pointer;
     float: left;
-    height: 150px;
+    height: 100px;
 }
 
 .slide-thumbnail-container .slide {
-    margin-top: 2em;
-    margin-bottom: 2em;
     overflow: hidden;
 }
