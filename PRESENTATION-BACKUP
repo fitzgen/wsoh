@@ -1,0 +1,55 @@
+ Welcome slide for free
+
+
+-------------------------
+
+# Yo Dawg
+
+![Yo Dawg](http://localhost:8080/pragmatico/www/yo-dawg-small.jpg)
+
+
+-------------------------
+
+# Why?
+
+* We're most productive working together
+
+* Simple and quick
+
+* No boundaries
+
+-------------------------
+
+# How?
+
+* Operational Transformation w/ OpenCoweb
+
+* Markdown
+
+* CSS 3 & HTML 5
+
+-------------------------
+
+# Example: Code
+
+    function hello() {
+      alert('Hello WSOH!');
+    }
+
+------------------------
+
+# Example: Video
+
+?[](http://localhost:8080/pragmatico/www/quake.ogg)
+
+------------------------
+
+# Thanks! Questions?
+
+* Nick Fitzgerald
+
+  * <http://fitzgeraldnick.com/>
+
+* Hannes Verschore
+
+  * <http://twitter.com/h4writer>
