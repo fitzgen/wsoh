@@ -18,6 +18,7 @@ define([
   WYSIWYG.prototype._subscribe = function WYSIWYG_subscribe () {
     this.dojo.subscribe('/pragmatico/select-slide', this._onselect.bind(this));
     this.dojo.subscribe('/pragmatico/slide/set', this._onset.bind(this));
+    this.dojo.subscribe('/pragmatico/slide/remote-set', this._onremoteset.bind(this));
     this.dojo.subscribe('/pragmatico/slide-show/start', this._onstart.bind(this));
     this.dojo.subscribe('/pragmatico/slide-show/stop', this._onstop.bind(this));
   };
@@ -37,8 +38,19 @@ define([
   };
 
   WYSIWYG.prototype._onset = function WYSIWYG_onset (s) {
+    console.log("WYSIWYG onset!!");
     if ( slide.id(s) === slide.id(this.slide) ) {
       this.preview.innerHTML = markdown.toHTML(slide.text(s));
+    }
+  };
+
+  WYSIWYG.prototype._onremoteset = function WYSIWYG_onset (s) {
+    console.log("WYSIWYG onremoteset!!");
+    if ( slide.id(s) === slide.id(this.slide) ) {
+      console.log("Updating our shiiit");
+      console.log(slide.text(s));
+      this.preview.innerHTML = markdown.toHTML(slide.text(s));
+      this.textarea.value = slide.text(s);
     }
   };
 

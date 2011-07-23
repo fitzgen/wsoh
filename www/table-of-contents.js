@@ -52,7 +52,7 @@ define([
     console.log('TOC_addSlide');
     console.log(s);
     console.log(' ');
-    var thumb = this._slides[slide.id(s)] = new SlideThumbnail(s);
+    var thumb = this._slides[slide.id(s)] = new SlideThumbnail(s, this.dojo);
     this.domNode.appendChild(thumb.domNode);
     if ( ! this._selected ) {
       this._select(thumb.domNode);

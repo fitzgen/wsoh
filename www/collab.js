@@ -62,14 +62,35 @@ define([
 
     this.mutex = true;
     if ( args.type === 'update' ) {
+      console.log('GOT REMOTE UPDATE');
       this.dataStore.fetchItemByIdentity({
         identity: id,
-        onComplete: (function (s) {
-          this.dataStore.setValue(s, 'text', slide.text(s));
+        onItem: (function (s) {
+          console.log('ONCOMPLETE, GOING TO SET VALUE');
+          try {
+            var success = this.dataStore.setValue(s, 'text', value.text);
+            console.log("Success = " + success);
+          } catch (e) {
+            console.log("GOT AN ERROR IN SETVALUE");
+            console.error(e);
+          }
+          console.log('AFTER SETVALUE');
+          // XXX: this is a hack and shouldn't have to happen, but the topic
+          // isn't being published automatically by the dataStore for some
+          // reason and I can't find the new value?
+          this.dojo.publish('/pragmatico/slide/set', [{
+            id: [id],
+            text: [value.text]
+          }]);
+          this.dojo.publish('/pragmatico/slide/remote-set', [{
+            id: [id],
+            text: [value.text]
+          }]);
           this.mutex = false;
         }).bind(this)
       });
     } else if ( args.type === 'insert' ) {
+      console.log('GOT REMOTE INSERT');
       this.dataStore.newItem({
         id: id,
         text: value.text

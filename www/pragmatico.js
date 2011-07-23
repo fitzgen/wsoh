@@ -42,6 +42,7 @@ define([
       dojo.publish('/pragmatico/slide/new', [].slice.call(arguments));
     });
     dojo.connect(dataStore, 'onSet', function () {
+      console.log('A VALUE HAS BEEN SET');
       dojo.publish('/pragmatico/slide/set', [].slice.call(arguments));
     });
     dojo.connect(dataStore, 'onDelete', function () {
@@ -124,7 +125,7 @@ define([
     // INITIALIZATION
 
     dataStore.newItem({
-      id: generateId(),
+      id: 1,
       text: '# Welcome to *Pragmatico!*\n\n'
         + '* Create beautiful presentations collaboratively in real time\n\n'
         + '* Simply use [`Markdown`](http://daringfireball.net/projects/markdown/)\n\n'
