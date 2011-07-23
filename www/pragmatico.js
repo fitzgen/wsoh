@@ -111,7 +111,8 @@ define([
       text: '# Welcome to *Pragmatico!*\n\n'
         + '* Create beautiful presentations collaboratively in real time\n\n'
         + '* Simply use [`Markdown`](http://daringfireball.net/projects/markdown/)\n\n'
-        + '* See results as you type'
+        + '* See results as you type\n'
+        + '* All in your favorite browser: ![Firefox !!!!!](http://people.mozilla.com/~faaborg/files/shiretoko/firefoxIcon/firefox-64.png)'
     });
 
   });
