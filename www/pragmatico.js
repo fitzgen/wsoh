@@ -2,13 +2,23 @@ define([
   'coweb/main',
   './table-of-contents',
   './wysiwyg',
+  './slide-show',
   'https://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dojo/dojo.xd.js.uncompressed.js'
-], function(coweb, TableOfContents, WYSIWYG) {
+], function(coweb, TableOfContents, WYSIWYG, SlideShow) {
 
   dojo.require('dojo.data.ItemFileWriteStore');
   dojo.require('dijit.form.Button');
   dojo.require('dijit.layout.BorderContainer');
   dojo.require('dijit.layout.ContentPane');
+
+  dojo.publish = (function (publish) {
+    return function (topic) {
+      console.log('Publishing to ' + topic);
+      console.log([].slice.call(arguments, 1));
+      console.log(' ');
+      publish.apply(this, [].slice.call(arguments));
+    };
+  }(dojo.publish));
 
   dojo.ready(function() {
 
@@ -26,21 +36,12 @@ define([
     var dataStore = new dojo.data.ItemFileWriteStore({ data: emptyData });
 
     dojo.connect(dataStore, 'onNew', function () {
-      console.log('/pragmatico/slide/new');
-      console.log([].slice.call(arguments));
-      console.log(' ');
       dojo.publish('/pragmatico/slide/new', [].slice.call(arguments));
     });
     dojo.connect(dataStore, 'onSet', function () {
-      console.log('/pragmatico/slide/set');
-      console.log([].slice.call(arguments));
-      console.log(' ');
       dojo.publish('/pragmatico/slide/set', [].slice.call(arguments));
     });
     dojo.connect(dataStore, 'onDelete', function () {
-      console.log('/pragmatico/slide/delete');
-      console.log([].slice.call(arguments));
-      console.log(' ');
       dojo.publish('/pragmatico/slide/delete', [].slice.call(arguments));
     });
 
@@ -77,11 +78,37 @@ define([
     // dojo.connect(removeSlideButton, 'onClick', function () {
     // });
 
+    var slideShowButton = dijit.byId('slideshow-button');
+    console.log(slideShowButton);
+
+    var slideShow = new SlideShow({
+      dojo: dojo
+    });
+    document.body.appendChild(slideShow.domNode);
+
+    dojo.connect(slideShowButton, 'onClick', function () {
+      dataStore.fetch({
+        onComplete: function (slides) {
+          dojo.publish('/pragmatico/slide-show/start', [slides]);
+        }
+      });
+    });
+
+    // Hide/show main border container
+
+    var container = dijit.byId('container');
+    dojo.subscribe('/pragmatico/slide-show/start', function () {
+      dojo.style(container.domNode, "display", "none");
+    });
+    dojo.subscribe('/pragmatico/slide-show/stop', function () {
+      dojo.style(container.domNode, "display", "block");
+    });
+
     // INITIALIZATION
 
     dataStore.newItem({
       id: generateId(),
-      text: '# Welcome to *Pragmatico*\n\n'
+      text: '# Welcome to *Pragmatico!*\n\n'
         + '* Create beautiful presentations collaboratively in real time\n\n'
         + '* Simply use [`Markdown`](http://daringfireball.net/projects/markdown/)\n\n'
         + '* See results as you type'
