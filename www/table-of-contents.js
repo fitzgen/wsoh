@@ -42,10 +42,10 @@ define([
     this.dojo.publish('/pragmatico/select-slide',
                       [Number(el.getAttribute('data-slide-id'))]);
     if ( this._selected ) {
-      this.dojo.removeClass(this._selected.firstChild, 'selected-slide');
+      this.dojo.removeClass(this._selected, 'selected-slide');
     }
     this._selected = el;
-    this.dojo.addClass(el.firstChild, 'selected-slide')
+    this.dojo.addClass(el, 'selected-slide')
   };
 
   TableOfContents.prototype._addSlide = function TOC_addSlide (s) {

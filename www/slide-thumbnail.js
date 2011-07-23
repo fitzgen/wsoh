@@ -5,20 +5,23 @@ define([
 
   function SlideThumbnail (s, dojo) {
     this.domNode = document.createElement('div');
-    this.innerDiv = document.createElement('div');
-    this.innerDiv.className = 'slide';
-    this.domNode.appendChild(this.innerDiv);
+    this.thumbnail = document.createElement('div');
+    this.slide = document.createElement('div');
+    this.slide.className = 'slide';
+    this.thumbnail.appendChild(this.slide);
+    this.thumbnail.className = 'slide-thumbnail';
+    this.domNode.appendChild(this.thumbnail);
     this.domNode.className = 'slide-thumbnail-container';
     this.domNode.setAttribute('data-slide-id', slide.id(s));
     this.dojo = dojo;
-    this.slide = s;
+    this.slideObj = s;
 
     this._subscribe();
     this.refresh(s);
   }
 
   SlideThumbnail.prototype.refresh = function ST_refresh (s) {
-    this.innerDiv.innerHTML = markdown.toHTML(slide.text(s));
+    this.slide.innerHTML = markdown.toHTML(slide.text(s));
   };
 
   SlideThumbnail.prototype._subscribe = function ST_subscribe () {
@@ -26,8 +29,8 @@ define([
   };
 
   SlideThumbnail.prototype._onset = function ST_onset (s) {
-    if ( slide.id(s) === slide.id(this.slide) ) {
-      this.slide = s;
+    if ( slide.id(s) === slide.id(this.slideObj) ) {
+      this.slideObj = s;
       this.refresh(s);
     }
   };

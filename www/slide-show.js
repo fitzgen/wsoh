@@ -42,6 +42,7 @@ define([
     this.active = true;
 
     this._show();
+    this._onresize();
     this._showSlide();
   };
 
@@ -55,6 +56,13 @@ define([
     this._hide();
   };
 
+  SlideShow.prototype._onresize = function SS_onresize () {
+    if (this.active) {
+        this.slideDiv.style.MozTransformOrigin = "0% 0%";
+        this.slideDiv.style.MozTransform = "scale("+(window.innerWidth/800)+")";
+    }
+  };
+
   var ESC = 27;
   var SPC = 32;
   var UP = 38;
@@ -65,6 +73,8 @@ define([
   SlideShow.prototype._listen = function SS_listen () {
     var next = this._next.bind(this);
     var previous = this._previous.bind(this);
+
+    this.dojo.connect(window, 'onresize', this._onresize.bind(this));
 
     this.dojo.connect(this.domNode, 'onClick', next);
     this.dojo.connect(this.domNode, 'onkeypress', (function (event) {
