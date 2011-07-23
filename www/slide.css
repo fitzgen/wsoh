@@ -3,12 +3,15 @@
 .slide {
     min-width: 30em;
     max-width: 30em;
-    font-size: 200%;
+    min-height: 16.8em;
+    max-height: 16.8em;
+    font-size: 2em;
     box-shadow: 2px 2px 6px #444;
     background-color: #FFF;
     padding: 2em !important;
+    overflow: hidden;
 }
 
-.slide h1 {
-
+.selected-slide {
+    box-shadow: 0px 6px 6px #44A;
 }
