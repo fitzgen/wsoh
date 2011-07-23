@@ -9,6 +9,7 @@ define([
     this.preview = args.preview;
     this.dataStore = args.dataStore;
     this.slide = null;
+    this.active = true;
 
     this._subscribe();
     this._listen();
@@ -17,6 +18,8 @@ define([
   WYSIWYG.prototype._subscribe = function WYSIWYG_subscribe () {
     this.dojo.subscribe('/pragmatico/select-slide', this._onselect.bind(this));
     this.dojo.subscribe('/pragmatico/slide/set', this._onset.bind(this));
+    this.dojo.subscribe('/pragmatico/slide-show/start', this._onstart.bind(this));
+    this.dojo.subscribe('/pragmatico/slide-show/stop', this._onstop.bind(this));
   };
 
   WYSIWYG.prototype._onselect = function WYSIWYG_onselect (id) {
@@ -39,12 +42,23 @@ define([
     }
   };
 
+  WYSIWYG.prototype._onstart = function WYSIWYG_onstart () {
+    this.textarea.blur();
+    this.active = false;
+  };
+
+  WYSIWYG.prototype._onstop = function WYSIWYG_onstop () {
+    this.active = true;
+  };
+
   WYSIWYG.prototype._listen = function WYSIWYG_listen () {
-    this.dojo.connect(this.textare, 'onkeyup', this._onkeyup.bind(this));
+    this.dojo.connect(this.textarea, 'onkeyup', this._onkeyup.bind(this));
   };
 
   WYSIWYG.prototype._onkeyup = function WYSIWYG_onkeyup (event) {
-    this.dataStore.setValue(this.slide, 'text', this.textarea.value);
+    if ( this.active ) {
+      this.dataStore.setValue(this.slide, 'text', this.textarea.value);
+    }
   };
 
   return WYSIWYG;
