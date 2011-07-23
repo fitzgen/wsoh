@@ -36,16 +36,16 @@ html, body {
 }
 
 #edit {
-    min-width: 68em;
-    max-width: 68em;
-    margin: 2em auto;
+    min-width: 800px;
+    max-width: 800px;
+    margin: 45px auto;
 }
 
 #edit textarea {
     min-height: 10em;
     max-height: 10em;
-    width: 800px;
-    padding: 1em;
+    width: 760px;
+    padding: 19px;
     border: 1px dashed #AAA;
     font-size: 200%;
 }
