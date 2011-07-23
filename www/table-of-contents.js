@@ -26,7 +26,7 @@ define([
   TableOfContents.prototype._onclick = function TOC_onclick (event) {
     var el = event.target;
     while ( el && el !== this.domNode ) {
-      if ( this.dojo.hasClass(el, 'slide-thumbnail') ) {
+      if ( this.dojo.hasClass(el, 'slide-thumbnail-container') ) {
         event.preventDefault();
         this._select(el);
         break;
@@ -42,10 +42,10 @@ define([
     this.dojo.publish('/pragmatico/select-slide',
                       [Number(el.getAttribute('data-slide-id'))]);
     if ( this._selected ) {
-      this.dojo.removeClass(this._selected, 'selected-slide');
+      this.dojo.removeClass(this._selected.firstChild, 'selected-slide');
     }
     this._selected = el;
-    this.dojo.addClass(el, 'selected-slide')
+    this.dojo.addClass(el.firstChild, 'selected-slide')
   };
 
   TableOfContents.prototype._addSlide = function TOC_addSlide (s) {
