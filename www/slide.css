@@ -3,11 +3,12 @@
 .slide {
     min-width: 710px;
     max-width: 710px;
-    min-height: 360px;
-    max-height: 360px;
+    min-height: 405px;
+    max-height: 405px;
     font-size: 2em;
     box-shadow: 2px 2px 6px #444;
     background-color: #FFF;
     padding: 45px !important;
+    padding-top: 0px !important;
     overflow: hidden;
 }
